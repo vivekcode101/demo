@@ -33,15 +33,15 @@ jobs:
 
       - name: Build  image
         run: |
-          docker build -t ${{ inputs.image }}:${{ inputs.tag }} -f custom-fe-be/${{ inputs.image }}/dockerfile .
-          docker tag ${{ inputs.image }}:${{ inputs.tag }} public.ecr.aws/${{ secrets.alias }}/${{ inputs.image }}:${{ inputs.tag }}
+          docker build -t ${{ inputs.image }} -f custom-fe-be/${{ inputs.image }}/dockerfile .
+          docker tag ${{ inputs.image }}:${{ inputs.tag }} public.ecr.aws/${{ secrets.alias }}/${{ inputs.image }}
 
       - name: Tag and push Docker image to Docker Hub
         run: |
-          docker push public.ecr.aws/${{ secrets.alias }}/${{ inputs.image }}:${{ inputs.tag }}
+          docker push public.ecr.aws/${{ secrets.alias }}/${{ inputs.image }}
 
       - uses: sigstore/cosign-installer@11086d25041f77fe8fe7b9ea4e48e3b9192b8f19 # v3.1.2
       - name: Sign the images
         run: |
           cosign sign \
-            --yes  public.ecr.aws/${{ secrets.alias }}/${{ inputs.image }}:${{ inputs.tag }}
+            --yes  public.ecr.aws/${{ secrets.alias }}/${{ inputs.image }}
