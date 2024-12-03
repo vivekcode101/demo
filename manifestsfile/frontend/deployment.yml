@@ -23,10 +23,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: public.ecr.aws/q2y7e9r0/frontenduri:latest
+        image: vivekcode101/pkmf1:latest
         imagePullPolicy: Always
-        # env:
-        #   - name: backendUrl
-        #     value: "http://demo.thevy.xyz/api/ge" 
         ports:
         - containerPort: 3000

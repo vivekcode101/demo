@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cm-acme-http-solver
+  namespace: demo
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: demo.thevy.xyz  # This should match the domain you're using for the certificate
+    http:
+      paths:
+      - path: /.well-known/acme-challenge/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: cm-acme-http-solver-service  # This should be the service used by the solver pod
+            port:
+              number: 8089  # This is the port the solver service is listening on
